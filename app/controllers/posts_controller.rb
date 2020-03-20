@@ -1,5 +1,7 @@
+# rubocop:disable Style/GuardClause
+
 class PostsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create]
+  before_action :logged_in_user, only: %i[new create]
   def new
     @post = Post.new
   end
@@ -10,7 +12,7 @@ class PostsController < ApplicationController
     if @posts.save
       redirect_to posts_url
     else
-      flash[:warning] = "Access Denied"
+      flash[:warning] = 'Access Denied'
       render 'new'
     end
   end
@@ -20,15 +22,17 @@ class PostsController < ApplicationController
   end
 
   private
+
   def posts_params
     params.require(:post).permit(:body)
   end
 
   def logged_in_user
     unless logged_in?
-      
       redirect_to(login_path)
       flash[:danger] = 'Please log in'
     end
   end
 end
+
+# rubocop:enable Style/GuardClause

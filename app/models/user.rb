@@ -1,19 +1,18 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   before_create :set_first_remember_digest
-  
+
   has_secure_password
   has_many :posts
 
   # Returns the hash digest of the given string.
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                  BCrypt::Engine.cost
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
   # Returns a random token.
-  def User.new_token
+  def self.new_token
     SecureRandom.urlsafe_base64
   end
 
@@ -24,9 +23,9 @@ class User < ApplicationRecord
   end
 
   private
-    def set_first_remember_digest
-      digest = User.digest(User.new_token)
-      self.remember_digest = digest
-    end 
-  
+
+  def set_first_remember_digest
+    digest = User.digest(User.new_token)
+    self.remember_digest = digest
+  end
 end

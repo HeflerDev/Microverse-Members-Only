@@ -5,12 +5,12 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email])
-    if user && user.authenticate(params[:session][:password])
+    if user&.authenticate(params[:session][:password])
       log_in(user)
       redirect_to(root_path)
-      flash[:success] = "Access Granted"
+      flash[:success] = 'Access Granted'
     else
-      flash.now[:warning] = "Access Denied"
+      flash.now[:warning] = 'Access Denied'
       render 'new'
     end
   end
