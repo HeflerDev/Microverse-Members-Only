@@ -3,6 +3,7 @@ class User < ApplicationRecord
   before_create :set_first_remember_digest
   
   has_secure_password
+  has_many :posts
 
   # Returns the hash digest of the given string.
   def User.digest(string)

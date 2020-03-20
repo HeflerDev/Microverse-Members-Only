@@ -2,7 +2,10 @@
   <h1>Welcome <%="#{@user.username}"%>
   <br>
   <%= link_to "Log out", logout_path, method: :delete %>
+  <br>
   <%else%>
   <h1>Welcome, please log in!</h1>
   <%= link_to "Log In", login_path %>
 <%end%>
+<br>
+<%= link_to "Go to Posts", posts_path%>

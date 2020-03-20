@@ -1,0 +1,14 @@
+<h1> All Posts </h1>
+<%= link_to "Log out", logout_path, method: :delete %>
+<br>
+<% @posts.each do |post| %>
+  <% if logged_in? %>
+  Posted by: <%= User.find(post.user_id).username %>
+  <%else%>
+  <%= link_to "Log In", login_path %> to view commenters names
+  <%end%>
+  <br>
+  <%= post.body %>
+  <br>
+  <hr>
+<%end%>
