@@ -3,7 +3,6 @@ module SessionsHelper
     remember_digest = User.digest(User.new_token)
     user.update_attribute(:remember_digest, remember_digest)
     cookies.permanent[:remember_token] = remember_digest
-    current_user = user
   end
 
   def current_user
